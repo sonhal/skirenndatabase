@@ -9,7 +9,12 @@
 namespace skirenndatabase;
 
 
-class footer
+class Footer implements ITemplateElement
 {
+    private $footer = '<footer class="w3-container w3-theme"><p>Footer</p></footer>';
 
+    public function getHTML()
+    {
+        return $this->footer;
+    }
 }
