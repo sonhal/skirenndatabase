@@ -8,7 +8,7 @@
 
 namespace skirenndatabase;
 
-require_once "ITemplateElement.php";
+require_once "IPage.php";
 
 class Page implements IPage
 {

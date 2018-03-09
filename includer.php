@@ -5,7 +5,7 @@
  * Date: 09.03.2018
  * Time: 18.39
  */
-include "header.php";
+include "Head.php";
 include "IPage.php";
 include "ITemplateElement.php";
 include "SafeDBConnector.php";
