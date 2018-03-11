@@ -19,4 +19,5 @@ $footer = new Footer();
 $body = new CustomerRegistration();
 $page = new Page(new PageBuilder($header,$body, $footer ));
 
+$body->handlePost();
 $page->render();

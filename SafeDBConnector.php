@@ -13,21 +13,37 @@ class SafeDBConnector
 {
     private $db;
 
-    function __construct($dbHost, $dbUser, $dbPassword, $database)
+    public function __construct($dbHost, $dbUser, $dbPassword, $database)
     {
 
         $this->db = mysqli_connect($dbHost, $dbUser, $dbPassword, $database);
+        if (mysqli_connect_errno()) {
+            echo "Failed to connect to MySQL: " . mysqli_connect_error();
+        }
         $this->db->autocommit(false);
     }
 
 
-    function getDB(){
+    public function getDB(){
         return $this->db;
     }
 
-    function query($query){
+    public function query($query){
         return $this->db->query($query);
     }
+
+    public function getInsertID(){
+        return $this->db->insert_id;
+    }
+
+    public function commit(){
+        $this->db->commit();
+    }
+
+    public function rollback(){
+        $this->db->rollback();
+    }
+
 
     function safeInsertQuery($queryArray){
         $queryOk = true;
