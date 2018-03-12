@@ -14,7 +14,7 @@ class Header implements ITemplateElement
 {
 
     private $header = '<header class="w3-bar w3-theme w3-xlarge" id="home"/>'.
-    '<a class="w3-bar-item w3-button" href="#"><i class="fa fa-database"></i></a>'.
+    '<a class="w3-bar-item w3-button" href="/skirenndatabase/index.php"><i class="fa fa-database"></i></a>'.
     '<span class="w3-bar-item">Skirenn Database</span></header>';
 
 

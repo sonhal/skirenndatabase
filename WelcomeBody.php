@@ -12,10 +12,10 @@ namespace skirenndatabase;
 class WelcomeBody implements ITemplateElement
 {
     private $body = '<div class="w3-main w3-container">
-<h1 class="w3-jumbo">Weclome!</h1>
+<h1 class="w3-jumbo">Velkommen!</h1>
 </div>';
 
-    private $registerSpectatorCard = '<a href="customer-registration.php"><div class="w3-card w3-hover-shadow" style="padding:10px;">
+    private $registerSpectatorCard = '<a href="customer-registration.php" style="text-decoration: none;"><div class="w3-card w3-hover-shadow" style="padding:10px; margin: 20px;">
 <header class="w3-container w3-blue">
   <h1>Registrer deg som tilskuer</h1>
 </header>
@@ -25,7 +25,7 @@ class WelcomeBody implements ITemplateElement
 </div>
 </div></a>';
 
-    private $registerCompetitorCard = '<a href="customer-registration.php"><div class="w3-card w3-hover-shadow" style="padding:10px;">
+    private $registerCompetitorCard = '<a href="competitior-registration.php" style="text-decoration: none;"><div class="w3-card w3-hover-shadow" style="padding:10px; margin: 20px;">
 <header class="w3-container w3-blue">
   <h1>Registrer deg som utøver</h1>
 </header>
