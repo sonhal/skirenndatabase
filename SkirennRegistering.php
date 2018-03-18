@@ -14,7 +14,7 @@ class SkirennRegistering
 {
 
     protected function getSelectEventHTML(){
-        $html = "<label class=\"w3-text-teal\"><b>Øvelse</b></label><select class='w3-select w3-border' name='event_type'>
+        $html = "<label class=\"w3-text-teal\"><b>Øvelse</b></label><select class='w3-select w3-border' name='event'>
   <option value='' disabled selected>Velg øvelse...</option>";
         try {
             $skiDB = new SkirennDBHandler("localhost", "root", "", "vm_ski");
@@ -26,7 +26,9 @@ class SkirennRegistering
         }
 
         foreach ($rows as $row){
-            $html .= "<option value='". htmlspecialchars($row["id"])."' >".htmlspecialchars($row["name"])."</option>";
+            $html .= "<option value='". htmlspecialchars($row["id"])."' >".
+                htmlspecialchars($row["date"])." - ". htmlspecialchars($row["name"]). " - " .htmlspecialchars($row["location"]).
+                "</option>";
 
         }
         $html .= "</select><br><br>";

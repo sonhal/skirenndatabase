@@ -13,6 +13,7 @@ require_once "footer.php";
 require_once "WelcomeBody.php";
 require_once "PageBuilder.php";
 require_once "Page.php";
+require_once "aa_DB_init.php";
 
 $header = new Header();
 $footer = new Footer();

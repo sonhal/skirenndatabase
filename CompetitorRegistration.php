@@ -33,9 +33,9 @@ class CompetitorRegistration extends SkirennRegistering implements ITemplateElem
     private function getSelectNationalityHTML(){
         $html = '<label class="w3-text-teal"><b>Nasjonalitet</b></label><select class="w3-select w3-border" name="nationality">
   <option value="" disabled selected>Velg Nasjonalitet...</option>
-  <option value="NO">Norge</option>
-  <option value="SE">Sverige</option>
-  <option value="DK">Danmark</option></select><br><br>';
+  <option value="Norway">Norge</option>
+  <option value="Sweden">Sverige</option>
+  <option value="Denmark">Danmark</option></select><br><br>';
         return $html;
     }
 
@@ -49,13 +49,12 @@ class CompetitorRegistration extends SkirennRegistering implements ITemplateElem
             $address = $_POST["address"];
             $nationality = $_POST["nationality"];
             $eventID = $_POST["event"];
-            $competitor = new Competitor($name, $phoneNr, $address, $nationality);
-            $_SESSION["spectator"] = serialize($spectator);
+            $competitor = new Competitor($name, $phoneNr, $address, $nationality, $eventID);
 
             $db = new SkirennDBHandler("localhost", "root", "", "vm_ski");
-            $result = $db->insertNewSpectator($spectator);
+            $result = $db->insertNewCompetitor($competitor);
 
-            echo "Post handled";
+            echo "Registrert";
         }
     }
 

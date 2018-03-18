@@ -35,6 +35,36 @@ class WelcomeBody implements ITemplateElement
 </div>
 </div></a>';
 
+    private $registerEventCard = '<a href="register-event.php" style="text-decoration: none;"><div class="w3-card w3-hover-shadow" style="padding:10px; margin: 20px;">
+<header class="w3-container w3-blue">
+  <h1>Registrer en ny Øvelse</h1>
+</header>
+
+<div class="w3-container">
+  <p>Klikk her</p>
+</div>
+</div></a>';
+
+    private $listEventCard = '<a href="event-list.php" style="text-decoration: none;"><div class="w3-card w3-hover-shadow" style="padding:10px; margin: 20px;">
+<header class="w3-container w3-blue">
+  <h1>Se liste over Øvelser</h1>
+</header>
+
+<div class="w3-container">
+  <p>Klikk her</p>
+</div>
+</div></a>';
+
+    private $listSpectatorCard = '<a href="spectator-list.php" style="text-decoration: none;"><div class="w3-card w3-hover-shadow" style="padding:10px; margin: 20px;">
+<header class="w3-container w3-blue">
+  <h1>Se liste over Tilskuere</h1>
+</header>
+
+<div class="w3-container">
+  <p>Klikk her</p>
+</div>
+</div></a>';
+
     public function getHTML()
     {
         $this->body .= $this->getRegistrationMenu();
@@ -47,6 +77,20 @@ class WelcomeBody implements ITemplateElement
         $html .= '<div class="w3-col s12 m6 w3-center">' . $this->registerSpectatorCard . '</div>';
         $html .= '<div class="w3-col m2"> </div>';
         $html .= '<div class="w3-col s12 m6 w3-center">' . $this->registerCompetitorCard . '</div>';
+        $html .= '<div class="w3-col m1"> </div>';
+        $html .= '</div>';
+        $html .= '<div class="w3-row">';
+        $html .= '<div class="w3-col m1"> </div>';
+        $html .= '<div class="w3-col s12 m6 w3-center">' . $this->registerEventCard . '</div>';
+        $html .= '<div class="w3-col m2"> </div>';
+        $html .= '<div class="w3-col s12 m6 w3-center">' . $this->listEventCard . '</div>';
+        $html .= '<div class="w3-col m1"> </div>';
+        $html .= '</div>';
+        $html .= '<div class="w3-row">';
+        $html .= '<div class="w3-col m1"> </div>';
+        $html .= '<div class="w3-col s12 m6 w3-center">' . $this->listSpectatorCard . '</div>';
+        $html .= '<div class="w3-col m2"> </div>';
+        $html .= '<div class="w3-col s12 m6 w3-center"></div>';
         $html .= '<div class="w3-col m1"> </div>';
         $html .= '</div>';
         return $html;

@@ -54,14 +54,14 @@ class CustomerRegistration extends SkirennRegistering implements ITemplateElemen
             $phoneNr = $_POST["phonenr"];
             $address = $_POST["address"];
             $ticketType = $_POST["ticket_type"];
-            $eventID = $_POST["event_type"];
+            $eventID = $_POST["event"];
             $spectator = new Spectator($name, $phoneNr, $address, $ticketType, $eventID);
             $_SESSION["spectator"] = serialize($spectator);
 
             $db = new SkirennDBHandler("localhost", "root", "", "vm_ski");
             $result = $db->insertNewSpectator($spectator);
 
-            echo "Post handled";
+            echo "Registrert";
         }
     }
 

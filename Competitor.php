@@ -13,11 +13,13 @@ require_once "Person.php";
 class Competitor extends Person
 {
     private $nationality;
+    private $eventID;
 
-    public function __construct(string $name, int $phoneNr, string $address, $nationality)
+    public function __construct(string $name, int $phoneNr, string $address, $nationality, $eventID)
     {
         parent::__construct($name, $phoneNr, $address);
         $this->nationality = $nationality;
+        $this->eventID = $eventID;
     }
 
     /**
@@ -27,4 +29,11 @@ class Competitor extends Person
     {
         return $this->nationality;
     }
+
+    /**
+     * @return mixed
+     */public function getEventID()
+{
+    return $this->eventID;
+}
 }
