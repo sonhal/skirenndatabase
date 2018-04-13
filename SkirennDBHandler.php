@@ -71,7 +71,7 @@ class SkirennDBHandler
         return null;
     }
 
-    private function insertNewPersonSQl($name, $address, $phoneNr)
+    public function insertNewPersonSQl($name, $address, $phoneNr)
     {
         if (!($stmt = $this->db->prepare("INSERT INTO person(NAME,ADDRESS,PHONENR) VALUES (?,?,?)"))) {
             echo "Prepare failed: (" . $this->db->errno . ") " . $this->db->error;
@@ -240,8 +240,43 @@ class SkirennDBHandler
         $result = $this->db->query($sql);
         $this->db->commit();
         return $result;
+    }
 
+    public function getAdmin($loginName){
+        if (!($stmt = $this->db->prepare("SELECT * FROM admin WHERE LOGIN_NAME = ?"))) {
+            echo "Prepare failed: (" . $this->db->errno . ") " . $this->db->error;
+        }
+        if (!$stmt->bind_param("s",$loginName)) {
+            echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
+        }
+        if (!$stmt->execute()) {
+            echo "Execute failed in Authentication Connection: (" . $stmt->errno . ") " . $stmt->error;
+        }
+        else {
+            return $stmt->get_result();
+        }
+    }
 
+    public function registerNewAdmin(Person $personObject, $loginName, $password){
+        $personID = $this->insertNewPersonSQl($personObject->getName(), $personObject->getAddress(), $personObject->getPhoneNr());
+        $hash = password_hash($password, PASSWORD_DEFAULT);
+        if($personID != null){
+            if (!($stmt = $this->db->prepare("INSERT INTO admin (PERSON_ID, LOGIN_NAME, PASSWORD) VALUES (?,?,?)"))) {
+                echo "Prepare failed: (" . $this->db->errno . ") " . $this->db->error;
+            }
+            if (!$stmt->bind_param("iss",$personID,$loginName, $hash)) {
+                echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
+            }
+            if (!$stmt->execute()) {
+                echo "Execute failed in Authentication Connection: (" . $stmt->errno . ") " . $stmt->error;
+            }
+            else {
+                $this->db->commit();
+                return true;
+            }
+        }
+        $this->db->rollback();
+        return false;
     }
 
     public function close(){
