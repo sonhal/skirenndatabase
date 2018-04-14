@@ -15,6 +15,7 @@ require_once "PageBuilder.php";
 require_once "CustomerRegistration.php";
 require_once "RegistrerEvent.php";
 
+
 $header = new Header();
 $footer = new Footer();
 $body = new RegistrerEvent();

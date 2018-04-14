@@ -10,11 +10,12 @@ namespace skirenndatabase;
 
 require_once "Event.php";
 require_once "SkirennDBHandler.php";
+require_once "Authenticator.php";
 
 class RegistrerEvent implements ITemplateElement, IPostHandlingTemplateElement
 {
     protected $head = '<div class="w3-container w3-teal">
-  <h2>Billett Registrering</h2>
+  <h2>Ny Øvelse Registrering</h2>
 </div>';
 
     protected $html = ' 
@@ -31,6 +32,7 @@ class RegistrerEvent implements ITemplateElement, IPostHandlingTemplateElement
     function handlePost()
     {
         if (isset($_POST["submit"])) {
+
             $date = $_POST["date"];
             $eventType = $_POST["type"];
             $location = $_POST["location"];
@@ -38,9 +40,12 @@ class RegistrerEvent implements ITemplateElement, IPostHandlingTemplateElement
             $newEvent = new Event($eventType, $location, $date);
 
             $db = new SkirennDBHandler("localhost", "root", "", "vm_ski");
-            $db->insertNewEvent($newEvent);
-
-            echo "Registrert";
+            if($db->insertNewEvent($newEvent)){
+                echo "Registrert";
+            }
+            else {
+                echo "Noe gikk galt";
+            }
         }
     }
 
@@ -66,7 +71,13 @@ class RegistrerEvent implements ITemplateElement, IPostHandlingTemplateElement
 
     public function getHTML()
     {
-        return $this->head . $this->html . $this->getSelectEventTypeHTML() .
-            '<button class="w3-btn w3-blue-grey" name="submit">Register</button></form><br>';
+        $auth = new Authenticator();
+        if($auth->isLoggedIn()){
+            return $this->head . $this->html . $this->getSelectEventTypeHTML() .
+                '<button class="w3-btn w3-blue-grey" name="submit">Register</button></form><br>';
+        }
+        else {
+            return "<h1>Du er ikke logget inn som admin og kan ikke se denne siden</h1>";
+        }
     }
 }

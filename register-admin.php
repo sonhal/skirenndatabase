@@ -13,8 +13,8 @@ require_once "Header.php";
 require_once "footer.php";
 require_once "Authenticator.php";
 require_once "SkirennDBHandler.php";
+require_once "InputSanitizer.php";
 
-session_start();
 $header = new Header();
 $head = new Head();
 echo $head->getHtml().$header->getHTML();
@@ -92,20 +92,36 @@ if (isset($_POST["submitted"])) {
     $phoneNr = $_POST["phonenr"];
     $address = $_POST["address"];
 
-    $newPerson = new Person($name, $phoneNr, $address);
-    $db = new SkirennDBHandler("localhost", "root", "", "vm_ski");
+    $login_name = InputSanitizer::sanitizeInput($login_name);
+    $password = InputSanitizer::sanitizeInput($password);
+    $name = InputSanitizer::sanitizeInput($name);
+    $phoneNr = InputSanitizer::sanitizeInput($phoneNr);
+    $address = InputSanitizer::sanitizeInput($address);
+    $inputIsValid = true;
 
-    try{
-        if($db->registerNewAdmin($newPerson, $login_name, $password)){
-            echo "Registrert";
+    foreach ([$login_name, $password, $name, $phoneNr, $address] as $input){
+        if($input == false){
+            $inputIsValid = false;
         }
-        else {
+    }
+    if($inputIsValid){
+        $newPerson = new Person($name, $phoneNr, $address);
+        $db = new SkirennDBHandler("localhost", "root", "", "vm_ski");
+
+        try{
+            if($db->registerNewAdmin($newPerson, $login_name, $password)){
+                echo "Registrert";
+            }
+            else {
+                echo "<br>Kunne ikke registrere brukeren";
+            }
+        }catch (\Exception $err){
             echo "<br>Kunne ikke registrere brukeren";
         }
-    }catch (\Exception $err){
-        echo "<br>Kunne ikke registrere brukeren";
     }
-
+    else{
+        echo "Vennligst ikke bruk spesielle tegn i input feltene";
+    }
 
 
 }

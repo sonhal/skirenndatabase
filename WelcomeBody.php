@@ -27,7 +27,7 @@ class WelcomeBody implements ITemplateElement
 
     private $registerCompetitorCard = '<a href="competitior-registration.php" style="text-decoration: none;"><div class="w3-card w3-hover-shadow" style="padding:10px; margin: 20px;">
 <header class="w3-container w3-blue">
-  <h1>Registrer deg som utøver</h1>
+  <h1>Registrer utøver</h1>
 </header>
 
 <div class="w3-container">

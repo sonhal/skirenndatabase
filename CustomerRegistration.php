@@ -15,6 +15,7 @@ require_once "SafeDBConnector.php";
 require_once "SkirennDBHandler.php";
 require_once "SkirennRegistering.php";
 
+
 class CustomerRegistration extends SkirennRegistering implements ITemplateElement, IPostHandlingTemplateElement
 {
 
@@ -47,8 +48,6 @@ class CustomerRegistration extends SkirennRegistering implements ITemplateElemen
 
     function handlePost()
     {
-        session_start();
-
         if (isset($_POST["submit"])) {
             $name = $_POST["name"];
             $phoneNr = $_POST["phonenr"];

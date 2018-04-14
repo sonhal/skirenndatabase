@@ -12,6 +12,7 @@ require_once "SkirennDBHandler.php";
 require_once "SkirennRegistering.php";
 require_once "ITemplateElement.php";
 require_once "IPostHandlingTemplateElement.php";
+require_once "Authenticator.php";
 
 class CompetitorRegistration extends SkirennRegistering implements ITemplateElement, IPostHandlingTemplateElement
 {
@@ -41,27 +42,36 @@ class CompetitorRegistration extends SkirennRegistering implements ITemplateElem
 
     function handlePost()
     {
-        session_start();
+        $auth = new Authenticator();
 
-        if (isset($_POST["submit"])) {
-            $name = $_POST["name"];
-            $phoneNr = $_POST["phonenr"];
-            $address = $_POST["address"];
-            $nationality = $_POST["nationality"];
-            $eventID = $_POST["event"];
-            $competitor = new Competitor($name, $phoneNr, $address, $nationality, $eventID);
+        if($auth->isLoggedIn()) {
+            if (isset($_POST["submit"])) {
+                $name = $_POST["name"];
+                $phoneNr = $_POST["phonenr"];
+                $address = $_POST["address"];
+                $nationality = $_POST["nationality"];
+                $eventID = $_POST["event"];
+                $competitor = new Competitor($name, $phoneNr, $address, $nationality, $eventID);
 
-            $db = new SkirennDBHandler("localhost", "root", "", "vm_ski");
-            $result = $db->insertNewCompetitor($competitor);
+                $db = new SkirennDBHandler("localhost", "root", "", "vm_ski");
+                $result = $db->insertNewCompetitor($competitor);
 
-            echo "Registrert";
+                echo "Registrert";
+            }
         }
     }
 
     public function getHTML()
     {
+        $auth = new Authenticator();
         $this->form .= $this->getSelectEventHTML() . $this->getSelectNationalityHTML() .
             '<button class="w3-btn w3-blue-grey" name="submit">Register</button></form><br>';
-        return $this->form;
+
+        if($auth->isLoggedIn()){
+            return $this->form;
+        }
+        else{
+            return "<h1>Du er ikke logget inn som admin og kan ikke se denne siden</h1>";
+        }
     }
 }

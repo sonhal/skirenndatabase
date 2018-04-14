@@ -22,4 +22,13 @@ class Authenticator
 
     }
 
+    public function isLoggedIn(){
+        if(isset($_SESSION["admin"]) and $_SESSION["admin"] == true){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
 }

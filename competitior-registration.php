@@ -13,6 +13,7 @@ require_once "footer.php";
 require_once "Page.php";
 require_once "PageBuilder.php";
 require_once "CompetitorRegistration.php";
+require_once "Authenticator.php";
 
 $header = new Header();
 $footer = new Footer();
@@ -21,3 +22,6 @@ $page = new Page(new PageBuilder($header,$body, $footer ));
 
 $body->handlePost();
 $page->render();
+
+
+

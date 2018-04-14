@@ -63,12 +63,14 @@ class SkirennDBHandler
         }
         if (!$stmt->execute()) {
             echo "Execute failed in Event: (" . $stmt->errno . ") " . $stmt->error;
+            $this->db->rollback();
+            return null;
         }
         else {
             $this->db->commit();
             return $stmt->insert_id;
         }
-        return null;
+
     }
 
     public function insertNewPersonSQl($name, $address, $phoneNr)
